@@ -22,8 +22,4 @@ class HomeController @Inject()  (ws: WSClient) extends InjectedController {
     Ok(views.html.index("Welcome to Full Stack Scala"))
   }
 
-  def time = Action {
-    Ok(views.html.index(System.currentTimeMillis().toString))
-  }
-
 }
