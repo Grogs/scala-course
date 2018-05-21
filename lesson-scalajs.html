@@ -63,7 +63,7 @@
 ~~~~
 
 ## Lesson Plan
-Get familiar with Play, then make a change to the project we setup last week.
+Get familiar with Play and Scala.js, then make a change to the project we setup last week.
 
 ~~~~
 ### Play Framework
@@ -208,16 +208,137 @@ Note:
 * And that's kind of essential when you're getting started.
 
 ~~~~
+## Scala.js
 
+Note:
+OK, enough with Play. Let's talk about Scala.js
+~
+So what is Scala.js?
+~
+A Scala to JavaScript compiler
+
+Note:
+
+Started by Sebastien Doeraene at EPFL a little over years ago now
+
+Hooks into the Scala compiler, and instead of emitting JVM bytecode, it emits JavaScript
+
+
+~
+You can use it to write your JavaScript web frontend.  
+
+But there are other usecases.  
+
+Note:
+* Web frontend is where most of the community's effort is going, but there's nothing that technically limits it
+* People have used it with NodeJS on the server.
+* I've used that a little myself: Electron with Scala.js, which leverages NodeJS
+~
+Why use Scala.js?  
+
+Note:
+* For us, it's this ability to use one language across both the frontend and backend
+* For me, intially it was just "I like Scala, so Scala.js sounds cool"
+* The productivity argument: not only do we share the language, but we share code - domain model and logic. We'll see this later on in the course.
+~
+Share domain model and business logic across client and server.  
+
+e.g. Validation logic  
+
+You can refactor some code on the server and the template will be updated!  <!-- .element: class="fragment" -->
+
+Note:
+* You can refactor code (e.g. rename a field on a class in your domain model) and the frontend is just update, without a coordination overhead.
+* E.g. Validation logic - you want to do validation on the client-side to provide an rich interactive experience...
+** But you need to run it on the server-side to make sure it can't be bypassed.
+** It seems a shame to write that twice. Overhead, and there can be differences, which makes it for a poor user experience.
+~
+Make the client more typesafe  
+
+Catch more errors at compile time
+
+Note: 
+Much moreso than JavaScript.  
+Even linters aren't going to get you that much typesafety. I'm sure they're getting better and better, but that can't compete with a language with a much richer type system.
+~
+The type safety goes further than Typescript.
+
+In TypeScript, you can optionally add types.  
+In Scala.js, you can optionally go Dynamic.<!-- .element: class="fragment" -->
+
+Note:
+* Fundamentally, in typescript you can optional add types and gradually make parts of your codebase more typesafe.
+* But with Scala.js, by default everything is typed and you can optionally go dynamic
+** allowing you to call potentially non-existing fields or methods on an object.
+** Which can be very useful for using an existing JavaScript library, but is something you really want to avoid.
+~
+Even your templates are typesafe  
+
+Much like Play's server side templating  
+
+[Rapture HTML Demo](https://embed.scalafiddle.io/embed?sfid=hMgI9Bu/1) <!-- .element: class="fragment" -->
+
+Note:
+* People are already used to generating HTML from code, via React. 
+  * This is popular in Scala.js
+* Jon Pretty's Rapture HTML takes this to the extreme. 
+  * HTML element nesting constaints at compile time
+  * and even 'style' attribute's CSS validated at compile time. 
+  * [Example](https://embed.scalafiddle.io/embed?sfid=hMgI9Bu/1)
+  * See 'Principles of Elegance' talk from ScalaDays NY 2016
+
+~ 
+It's mature with a rich ecosystem
+
+Note:
+* No longer experimental (since Feb 2015).
+~
+Lots of existing scala libraries work with Scala.js:
+- Scalaz
+- Cats
+- Shapeless
+- Monix
+- Circe
+- Most of the standard library, e.g. Futures
+
+~
+Typesafe fascades for existing libraries (varying quality):
+- DOM
+- jQuery
+- React
+- Angular
+- Vue.js
+- D3
+
+Note:
+* DOM API comes bundled with Scala.js
+* jQuery fascade is mature and maintained by Scala.js team
+* React actually has multiple fascades. I use one of them on personal projects.
+~
+Built for Scala.js:
+- ScalaTags
+- ScalaCss
+- Diode
+- autowire
+- Udash
+- scalajs-bundler
+
+
+Note:
+* The community is active and all sorts of Scala.js specific libraries have been written.
+* We'll be using autowire later in the course
+~
+Scala.js looks similar to JavaScript/ES6, but with types.
+
+[Demo](https://embed.scalafiddle.io/embed?sfid=8D8UXdW/6)
+~~~~
 ## Exercise
 
 Fix the tests in Lesson2.scala
 
 ```bash
 cd scala-course #go to your checked out project
-git stash #store any changes from last week
 git pull #fetch latest code
-git checkout lesson2 #checkout today's branch
 ./sbt test #run the tests
 ```
 

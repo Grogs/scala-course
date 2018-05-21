@@ -119,19 +119,26 @@ Starting with some history of where it came from
 
 ~
 - __1996__ Java 1.0 released
+
+Note:
+To talk about the history of Scala, we've got to talk about Java
 ~
 - __1997__ Pizza released by Martin Odersky and Philip Wadler
   * Added some new features to Java:
     * _polymorphism (AKA generics)_
     * _algebraic types_ (AKA case classes)
-    * _high order functions_
+    * _high order functions_ (examples map, filter)
 
 Note:
-This was a superset of Java and compiled down to Java.
+* A year later, Martin Oderky (Scala's creator) and Philip Wadler released Pizza.
+* This was a superset of Java and compiled down to Java. 
 ~
 - __1998__ GJ released by Odersky, Wadler et al. 
   * Compiled to JVM bytecode. 
   * Kept generics (using type erasure), dropped algebraic types and higher order functions
+
+Note:
+* The next year, they released GJ. This compiled directly to JVM bytecode. And it dropped a number of the cool features from Pizza and later Scala.
 ~
 - __2000__ Sun Microsystems adopts GJ as `javac` in JDK 1.3
   * With generics removed
@@ -148,6 +155,9 @@ This was a superset of Java and compiled down to Java.
   style d2 height:0
 </div></div>
 
+Note:
+* A couple of years later, Sun actually adopted GJ as the Java compiler.
+* But they remove generics. 
 ~
 __2004__ Java 1.5 released, with generics from GJ 
 <div><div class="mermaid">
@@ -161,16 +171,19 @@ __2004__ Java 1.5 released, with generics from GJ
   gj --> java1.5
   style d1 height:0
   style d2 height:0
-</div></div>          
+</div></div>     
+
+Note:
+A couple more years later, Java incorporated Generics.
 ~
 ### Functional Programming
 
 Note:
- - These features in the Pizza language - generics, case classes, higher order functions - all came from functional programming, which itself has a long history.
- - __Lambda calculus__ developed in 1930s
- - __Lisp__ developed in 1950s
- - __ML__ developed in 1970s
- - __Haskell__ version 1.0 was released in 1990, 7 years before Pizza
+ - These features in the Pizza language - generics, case classes, higher order functions - all came from functional programming, which itself has a long history before Java even started.
+ - It dates all the way back to __Lambda calculus__ developed in 1930s
+ - __Lisp__, developed in 1950s, is essentially a language built around the ideas of lambda calculous 
+ - __ML__ (an acronym for Meta Language) developed in 1970s. This was Lisp with types. The types in ML languages are automatically infered (similar to Java 10's local type inference), and ensure type safety – there is a formal proof that a well-typed ML program does not cause runtime type errors.
+ - __Haskell__ version 1.0 was released in 1990. Haskell is a ML derivative that is more functionally pure - you can't have side effects. (Well of course you can, you can look up the IO monad)
 
 ~
 Odersky develops __Funnel__ 1999-2001
@@ -178,14 +191,15 @@ Odersky develops __Funnel__ 1999-2001
   - blended OO and FP
 
 Note:
-* After working on Pizza and GJ
+* After working on Pizza and GJ, whilst Java would adopting GJ as the Java compiler, Odersky built Funnel.
 * Precursor to Scala.
 ~
 __2004__ Scala publicly released
   * Blended OO and FP
   * Written in Java  
 Note:
-Included features for Pizza like case classes and higher order functions. And more, like pattern matching.
+* A couple years after that, in the same year Java got generics, Scala was first publically released. 
+* It included features for Pizza like case classes and higher order functions. And more, like pattern matching, better type inference, etc.
 ~
 __2006__ Scala 2.x first released
 
@@ -194,32 +208,52 @@ This is the current major version of Scala.
 Note:
 We're up to 2.12 with 2.13 on the way.
 It was bootstrapped (written in Scala)
-
 ~
-Looking forward
-~
-* Dotty AKA Scala 3.0, is in progress. 
+## Dotty
+### AKA Scala 3
 Note:
-* You can already use it. It can use Java/Scala 2.11 libraries
-* Simplifies the theory underlying the language, and the compiler itself - a better base to iterate on
-* Should give us faster compilation, and much cleaner compiler codebase to evolve
+* Over the last 5 years, Odersky and his students at EPFL have been working on Dotty.
+* Simplifies the theory underlying the language, and the compiler itself.
+* It should give us faster compilation, and much cleaner compiler codebase to evolve on in future.
+* It also includes TASTY trees - which is a technique to solve the binary compatibility issues that have been a pain point with Scala.
+* There's a strong focus on making the transition very smooth. Odersky doesn't want the migration to be a huge issue like Python 2 to 3 was.
 ~
-Scala is mature. It borrows a number of feature and concepts from Functional Programming.
+## Why use Scala?
 ~
-Why use Scala?
-
-* Better Java
-* Performance / High Scalability; yet with a concise syntax.
-* Datascience ecosystem
-* Functional programming that's pragmatic
+### Better Java
 
 Note:
-* Depending on what you're lookign for with a "better Java", Kotlin might be a better fit.
-* The JVM helps us out with performance/scalability. There's also the Akka ecosystem, which gives us another approach to concurrency. But also functional programming and immutability are great for making scalable systems.
-* Also, there are a number of people from a Python/Ruby background who wanted the performance of Java with nicer syntax
-* Datascience - they wanted to leverage the JVM ecosystem (mainly Hadoop), but they wanted a more concise language. Generally you do datascience with Scala because of the scalability, and the FP helps there.
-* SOme people in the Scala community are really interested in languages like Haskell too, but use Scala due to the larger job market.
+* When I started using Scala at work 6 years ago, it was mainly interesting as a "better Java".
+* For two reasons I think: it is more concise that Java, and the FP influences were seen as better.
+* The Java community had already been embracing immutability (but awkwardly), and projects to provide nicer collections APIs.
+* e.g. Guava had/has things like `List.transform` which mapped over collections
+* But if I'm honest, Kotlin is very strong competition now IF you just want a "better Java". You get case classes, nice collection API etc.
+~
+### Performance / Scalability; yet with a concise syntax.
 
+Note:
+* This is one of the big motivations/reasons for myself and my team here at HCOM. 
+* This could be a course on its own.
+* For people from a Python/Ruby background Scala can just be a concise syntax with Java's performance.
+* There's a bunch of libraries and whole ecosystems for concurrency and asynchronous programming now in Scala.
+* Powerful Futures which I would argue are much nicer to work with than Java's CompletableFuture. Alternate implementations of Futures, and there are other things kind of like Futures but different.
+* Such as Akka Actors which implement Erlang Actor model on the JVM.
+* Stream processing libraries like akka-streams, monix, fs2. For Java you've got RxJava, and the Java 9 Flow API... In my opinion RxJava is not pleasant to work with compared with Scala alternatives.
+~
+### Datascience and Machine Learning ecosystem
+
+Note:
+* Spark is a big player here.
+* The JVM seems to dominate in the big data world. I think as data science and ML have started happening on big data, you have datascientists with Python or R background, and they appreciate a more concise yet still performant syntax over Java.
+* Also Functional programming is useful/imperative once you start doing distributed processing etc. MapReduce is basically just the concept of Monoid from Category Theory/Functional Programming.
+~
+### Static functional programming 
+
+Note:
+* Concurrent and asychronous programming are both a bit of a nightmare if you don't at least embrace immutability. 
+* But FP in Scala can be a lot more than that!
+* There are a number of library that implement or incorporate concepts from Category Theory. (Which basically just aims to make your code easier to reason about and compose.)
+* In Scala we can do a lot with types. If you adopt the functional stuff in the Scala ecosystem, you can really have a lot more guarantees about your code at compile time.
 
 ~~~~
 ### Running our skeleton project
