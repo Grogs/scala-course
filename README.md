@@ -1,12 +1,12 @@
-# Lesson 4
+# Lesson 5
 
 Today we will review the backend services we implemented last week.  
 Then we will create a basic search results page.
 
 ### Tasks
-* Checkout the `lesson4`branch
+* Checkout the `lesson5`branch
 * Run `sbt test` to see the failing tests.
-* Fix the failing tests in `lesson4.HotelsControllerSpec`.
+* Fix the failing tests in `lesson5.HotelsControllerSpec`.
     * To do this, you will have to build a page to show search results
     * You can check your progress by running `./sbt run` and then browsing to http://localhost:9000/hotels/search?destination=london&distance=1.2
 
@@ -24,7 +24,7 @@ Then we will create a basic search results page.
 ### Note  
 **If you finish the basic search page you will need to add some CSS and JavaScript to your view to pickup bootstrap**  
 To do this, add this in your template:
-For lesson4 please add this to the view you created:
+For lesson5 please add this to the view you created:
 ```
         <link rel='stylesheet' href='@routes.WebJarAssets.at(webJarAssets.locate("css/bootstrap.css"))'>
         <script src="@routes.WebJarAssets.at(webJarAssets.locate("jquery.js"))" type="text/javascript"></script>
